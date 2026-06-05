@@ -998,7 +998,7 @@ html,body{height:100%;overflow:hidden;background:var(--bg);font-family:'DM Sans'
         <!-- FRIENDS TAB -->
         <div class="social-tab-panel" id="panel-friends" style="padding:0 16px;">
           <div id="friends-logged-out" style="display:none;">
-            <div class="empty-state"><div class="empty-icon">🤝</div><p style="font-size:14px;font-weight:500;">Add workout friends</p><button onclick="showAuthModal()" style="margin-top:16px;padding:10px 24px;border-radius:100px;background:linear-gradient(135deg,#E8829A,#C9A96E);color:white;border:none;cursor:pointer;font-size:13px;font-weight:500;font-family:'DM Sans',sans-serif;">Join Now</button></div>
+            <div class="empty-state"><div class="empty-icon">🤝</div><p style="font-size:14px;font-weight:500;">Add your girlfriend</p><button onclick="showAuthModal()" style="margin-top:16px;padding:10px 24px;border-radius:100px;background:linear-gradient(135deg,#E8829A,#C9A96E);color:white;border:none;cursor:pointer;font-size:13px;font-weight:500;font-family:'DM Sans',sans-serif;">Join Now</button></div>
           </div>
           <div id="friends-logged-in" style="display:none;">
             <div style="display:flex;gap:8px;margin-bottom:14px;">
@@ -1148,7 +1148,7 @@ html,body{height:100%;overflow:hidden;background:var(--bg);font-family:'DM Sans'
 <div class="auth-overlay" id="addfriend-overlay" onclick="if(event.target===this)hideAddFriend()">
   <div class="auth-sheet">
     <div style="width:36px;height:4px;background:var(--border);border-radius:2px;margin:0 auto 24px;"></div>
-    <h3 class="display" style="font-size:24px;text-align:center;margin-bottom:6px;">Add a Friend 🤝</h3>
+    <h3 class="display" style="font-size:24px;text-align:center;margin-bottom:6px;">Add Girlfriend 🤝</h3>
     <p style="font-size:13px;color:var(--stone);text-align:center;margin-bottom:20px;">Enter their exact username.</p>
     <input class="auth-input" id="friend-username-input" placeholder="Their username" maxlength="20" autocapitalize="none" autocorrect="off" spellcheck="false"/>
     <div class="auth-error" id="friend-add-error"></div>
@@ -2358,7 +2358,7 @@ function renderFriendsList(){
   if(!el) return;
   const friends=getFriendsLocal();
   if(!friends.length){
-    el.innerHTML='<div class="empty-state"><div class="empty-icon">🌸</div><p style="font-size:14px;font-weight:500;">No friends yet</p><p style="font-size:12px;margin-top:6px;">Add friends to cheer each other on!</p></div>';
+    el.innerHTML='<div class="empty-state"><div class="empty-icon">🌸</div><p style="font-size:14px;font-weight:500;">No girlfriend added yet</p><p style="font-size:12px;margin-top:6px;">Add her to see her streak & send hype 💕</p></div>';
     return;
   }
   el.innerHTML=friends.map(f=>`
@@ -2745,7 +2745,7 @@ function renderFriendsList(){
   if(!el) return;
   const friends=getFriendsLocal();
   if(!friends.length){
-    el.innerHTML='<div class="empty-state"><div class="empty-icon">🌸</div><p style="font-size:14px;font-weight:500;">No friends yet</p><p style="font-size:12px;margin-top:6px;">Add friends to cheer each other on!</p></div>';
+    el.innerHTML='<div class="empty-state"><div class="empty-icon">🌸</div><p style="font-size:14px;font-weight:500;">No girlfriend added yet</p><p style="font-size:12px;margin-top:6px;">Add her to see her streak & send hype 💕</p></div>';
     return;
   }
   el.innerHTML=friends.map(f=>`
