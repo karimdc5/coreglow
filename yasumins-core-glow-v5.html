@@ -1331,8 +1331,19 @@ html,body{height:100%;overflow:hidden;background:var(--bg);font-family:'DM Sans'
       <p style="font-size:14px;font-weight:500;color:white;" id="video-title">Exercise Demo</p>
       <button onclick="hideVideo()" style="background:rgba(255,255,255,.1);border:none;color:white;width:32px;height:32px;border-radius:50%;cursor:pointer;font-size:16px;">✕</button>
     </div>
-    <iframe class="video-frame" id="video-frame" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-    <p style="font-size:11px;color:rgba(255,255,255,.4);text-align:center;margin-top:10px;">Video will continue playing while you work out</p>
+    <iframe class="video-frame" id="video-frame" allow="autoplay; encrypted-media" allowfullscreen
+      onerror="document.getElementById('yt-fallback').style.display='flex'"
+      onload="this.style.display='block'"></iframe>
+    <!-- Fallback if embed fails -->
+    <div id="yt-fallback" style="display:none;flex-direction:column;align-items:center;justify-content:center;gap:12px;background:#111;border-radius:12px;padding:32px 20px;aspect-ratio:16/9;">
+      <div style="font-size:32px;">▶️</div>
+      <p style="font-size:13px;color:rgba(255,255,255,.6);text-align:center;">This video can't play in-app</p>
+      <button id="yt-open-btn" onclick="openVideoOnYouTube()" style="padding:11px 24px;border-radius:100px;background:#FF0000;color:white;border:none;cursor:pointer;font-size:14px;font-weight:600;font-family:'DM Sans',sans-serif;display:flex;align-items:center;gap:8px;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-2.75 12 12 0 00-5.64 0A4.83 4.83 0 016.41 6.69 48.34 48.34 0 004.5 12a48.34 48.34 0 001.91 5.31 4.83 4.83 0 003.77 2.75 12 12 0 005.64 0 4.83 4.83 0 003.77-2.75A48.34 48.34 0 0019.5 12a48.34 48.34 0 00-1.91-5.31zM10 15V9l5 3-5 3z"/></svg>
+        Open in YouTube
+      </button>
+    </div>
+    <p style="font-size:11px;color:rgba(255,255,255,.4);text-align:center;margin-top:10px;" id="yt-hint">Video plays while you work out</p>
   </div>
 </div>
 
@@ -2160,13 +2171,33 @@ function showVideoForCurrent(){
   showVideo(ex.name, ex.videoId);
 }
 
+let _currentVideoId = '';
+
 function showVideo(name, videoId){
+  _currentVideoId = videoId;
   const overlay=document.getElementById('video-overlay');
   const frame=document.getElementById('video-frame');
   const title=document.getElementById('video-title');
+  const fallback=document.getElementById('yt-fallback');
+  const hint=document.getElementById('yt-hint');
   if(title) title.textContent=name+' — Demo';
-  if(frame) frame.src='https://www.youtube.com/embed/'+videoId+'?autoplay=1&rel=0&modestbranding=1';
+  if(fallback) fallback.style.display='none';
+  if(hint) hint.style.display='block';
+  if(frame){
+    frame.style.display='block';
+    frame.src='https://www.youtube.com/embed/'+videoId+'?autoplay=1&rel=0&modestbranding=1&playsinline=1';
+    // If embed errors after a short delay, show fallback
+    frame.onerror=()=>{
+      frame.style.display='none';
+      if(fallback) fallback.style.display='flex';
+      if(hint) hint.style.display='none';
+    };
+  }
   if(overlay) overlay.classList.add('show');
+}
+
+function openVideoOnYouTube(){
+  if(_currentVideoId) window.open('https://www.youtube.com/watch?v='+_currentVideoId,'_blank');
 }
 
 function hideVideo(){
@@ -2790,20 +2821,42 @@ async function doSignIn(){
     if(error){ document.getElementById('auth-login-error').textContent=error.message; btn.textContent='Sign In'; btn.disabled=false; return; }
 
     const uid = data.user?.id;
-    // Fetch profile
-    const { data: profile } = await supa.from('profiles').select('username').eq('id', uid).single();
+    const { data: profile } = await supa.from('profiles').select('username,streak,best_streak,total_workouts,score').eq('id', uid).single();
     const username = profile?.username || data.user?.user_metadata?.username || email.split('@')[0];
 
-    // Sync local stats
-    const streak = parseInt(localStorage.getItem(S.STREAK)||'0');
-    const total = getHistory().length;
-    const score = streak*10+total;
-    await supa.from('profiles').update({ streak, total_workouts:total, score, updated_at:new Date().toISOString() }).eq('id',uid);
+    const localStreak = parseInt(localStorage.getItem(S.STREAK)||'0');
+    const localTotal = getHistory().length;
+    const cloudStreak = profile?.streak||0;
+    const cloudTotal = profile?.total_workouts||0;
+    const cloudBest = profile?.best_streak||0;
+
+    // Take whichever is higher — protects against localStorage wipe
+    if(cloudStreak > localStreak || cloudTotal > localTotal){
+      // Restore from cloud
+      localStorage.setItem(S.STREAK, Math.max(cloudStreak, localStreak));
+      localStorage.setItem(S.BEST, Math.max(cloudBest, parseInt(localStorage.getItem(S.BEST)||'0')));
+      // Reconstruct history dates if local is empty but cloud has workouts
+      if(localTotal===0 && cloudTotal>0){
+        const fakeDates=[];
+        for(let i=cloudTotal-1;i>=0;i--){
+          const d=new Date(); d.setDate(d.getDate()-i);
+          fakeDates.push(d.toISOString().slice(0,10));
+        }
+        localStorage.setItem(S.HISTORY, JSON.stringify(fakeDates));
+        localStorage.setItem(S.LAST_FULL, fakeDates[fakeDates.length-1]);
+      }
+      showToast('Progress restored ✨ Welcome back, @'+username+'!');
+    } else {
+      // Local is equal or ahead — push local to cloud
+      const score = localStreak*10+localTotal;
+      await supa.from('profiles').update({ streak:localStreak, total_workouts:localTotal, score, updated_at:new Date().toISOString() }).eq('id',uid);
+      showToast('Welcome back, @'+username+'! 🌸');
+    }
 
     saveSocialUser({ id: uid, username, email });
     hideAuthModal();
+    refreshHome(); refreshStats();
     refreshSocialPage();
-    showToast('Welcome back, @'+username+'! 🌸');
     loadLeaderboard();
   }catch(e){
     document.getElementById('auth-login-error').textContent='Network error.';
@@ -3414,10 +3467,35 @@ setTimeout(checkIncomingHype, 3000);
     const { data } = await supa.auth.getSession();
     if(data?.session?.user && !socialUser){
       const uid=data.session.user.id;
-      const { data: profile } = await supa.from('profiles').select('username').eq('id',uid).single();
+      const { data: profile } = await supa.from('profiles').select('username,streak,best_streak,total_workouts').eq('id',uid).single();
       if(profile?.username){
         saveSocialUser({ id:uid, username:profile.username, email:data.session.user.email });
-        // Update header state only — don't load leaderboard until user opens Social tab
+
+        // Restore stats if localStorage is empty but cloud has data
+        const localStreak=parseInt(localStorage.getItem(S.STREAK)||'0');
+        const localTotal=getHistory().length;
+        const cloudStreak=profile.streak||0;
+        const cloudTotal=profile.total_workouts||0;
+        const cloudBest=profile.best_streak||0;
+
+        if(cloudStreak>localStreak || cloudTotal>localTotal){
+          localStorage.setItem(S.STREAK, Math.max(cloudStreak,localStreak));
+          localStorage.setItem(S.BEST, Math.max(cloudBest,parseInt(localStorage.getItem(S.BEST)||'0')));
+          if(localTotal===0 && cloudTotal>0){
+            const fakeDates=[];
+            for(let i=cloudTotal-1;i>=0;i--){
+              const d=new Date(); d.setDate(d.getDate()-i);
+              fakeDates.push(d.toISOString().slice(0,10));
+            }
+            localStorage.setItem(S.HISTORY,JSON.stringify(fakeDates));
+            localStorage.setItem(S.LAST_FULL,fakeDates[fakeDates.length-1]);
+          }
+          refreshHome(); refreshStats();
+        } else {
+          syncScoreToSupabase();
+        }
+
+        // Update social header silently
         const anonEl=document.getElementById('social-anon-state');
         const userEl=document.getElementById('social-user-state');
         if(anonEl) anonEl.style.display='none';
@@ -3426,7 +3504,6 @@ setTimeout(checkIncomingHype, 3000);
         const avEl=document.getElementById('social-avatar-lg');
         if(nameEl) nameEl.textContent='@'+profile.username;
         if(avEl) avEl.textContent=avatarInitials(profile.username);
-        syncScoreToSupabase();
       }
     }
   }catch(e){}
