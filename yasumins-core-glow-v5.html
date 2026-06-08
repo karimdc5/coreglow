@@ -130,6 +130,67 @@ html,body{height:100%;overflow:hidden;background:var(--bg);font-family:'DM Sans'
 .wbtn:active{transform:scale(.96);}
 .wbtn.primary{background:var(--sage);color:white;}
 .wbtn.secondary{background:rgba(255,255,255,.1);color:white;}
+
+/* ── 4-PHASE WORKOUT ── */
+.wm-phase{display:none;flex-direction:column;flex:1;overflow-y:auto;}
+.wm-phase.active{display:flex;}
+
+/* Phase bar */
+.phase-bar{display:flex;align-items:center;padding:14px 20px;gap:10px;flex-shrink:0;}
+.phase-label{font-size:10px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;padding:3px 10px;border-radius:100px;}
+.phase-label.ready{background:rgba(156,175,136,.25);color:#9CAF88;}
+.phase-label.countdown{background:rgba(201,169,110,.25);color:#C9A96E;}
+.phase-label.active-go{background:rgba(232,130,154,.25);color:#E8829A;}
+.phase-label.resting{background:rgba(100,181,246,.2);color:#64B5F6;}
+
+/* GET READY phase */
+.ready-photo{width:100%;height:200px;object-fit:cover;object-position:center;flex-shrink:0;}
+.ready-body{padding:20px 20px 0;display:flex;flex-direction:column;gap:14px;}
+.ready-cues{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:8px;}
+.ready-cue{display:flex;align-items:flex-start;gap:10px;font-size:13px;color:rgba(255,255,255,.8);line-height:1.5;}
+.ready-cue-dot{width:6px;height:6px;border-radius:50%;background:var(--sage);flex-shrink:0;margin-top:5px;}
+
+/* COUNTDOWN phase */
+.countdown-phase-bg{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:32px 24px;}
+@keyframes cdBeat{0%{transform:scale(.85);opacity:.4;}50%{transform:scale(1.1);}100%{transform:scale(1);opacity:1;}}
+.cd-number{font-family:'Cormorant Garamond',serif;font-size:130px;font-weight:300;color:white;line-height:1;animation:cdBeat .7s ease forwards;}
+.cd-go{font-size:64px;color:#9CAF88;font-weight:600;}
+.cd-hint{font-size:14px;color:rgba(255,255,255,.45);margin-top:16px;letter-spacing:.05em;}
+
+/* ACTIVE timed phase */
+.active-timed-body{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px 24px;gap:16px;}
+.progress-ring-wrap{position:relative;width:180px;height:180px;flex-shrink:0;}
+.progress-ring-wrap svg{position:absolute;top:0;left:0;transform:rotate(-90deg);}
+.progress-ring-center{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;}
+.ring-timer{font-family:'Cormorant Garamond',serif;font-size:56px;font-weight:300;color:white;line-height:1;}
+.ring-label{font-size:10px;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.1em;}
+.active-cue-text{font-size:22px;font-weight:500;color:white;text-align:center;letter-spacing:.05em;}
+.active-mini-cues{display:flex;flex-direction:column;gap:6px;width:100%;}
+.active-mini-cue{font-size:12px;color:rgba(255,255,255,.45);text-align:center;}
+
+/* ACTIVE reps phase */
+.active-reps-body{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:16px 24px;gap:14px;}
+.rep-display{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:300;color:rgba(255,255,255,.6);text-align:center;line-height:1.2;}
+.rep-big{font-size:72px;color:white;display:block;}
+.rep-add-btn{width:88px;height:88px;border-radius:50%;background:linear-gradient(135deg,#9CAF88,#6D8B5A);border:none;color:white;font-size:36px;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 8px 24px rgba(156,175,136,.4);transition:all .15s;flex-shrink:0;}
+.rep-add-btn:active{transform:scale(.88);box-shadow:0 4px 12px rgba(156,175,136,.3);}
+@keyframes repPop{0%{transform:scale(1);}30%{transform:scale(1.12);}100%{transform:scale(1);}}
+.rep-add-btn.pop{animation:repPop .25s ease;}
+.rep-undo{background:none;border:none;color:rgba(255,255,255,.35);font-size:12px;cursor:pointer;font-family:'DM Sans',sans-serif;padding:4px 12px;}
+.rep-cues-strip{width:100%;display:flex;flex-direction:column;gap:5px;}
+
+/* REST phase */
+.rest-body{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px;gap:16px;text-align:center;}
+.rest-timer-big{font-family:'Cormorant Garamond',serif;font-size:80px;font-weight:300;color:#64B5F6;line-height:1;}
+.rest-next-card{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:16px;padding:14px 18px;display:flex;align-items:center;gap:12px;width:100%;box-sizing:border-box;}
+.rest-next-thumb{width:52px;height:52px;border-radius:10px;object-fit:cover;flex-shrink:0;}
+.rest-msg{font-size:14px;color:rgba(255,255,255,.5);line-height:1.6;}
+
+/* Vacuum animation */
+.vacuum-anim{width:120px;height:80px;position:relative;margin:8px auto;}
+@keyframes vacuumIn{0%,100%{d:path("M20,40 Q60,20 100,40");}50%{d:path("M20,40 Q60,55 100,40");}}
+@keyframes vacuumOut{0%,100%{d:path("M20,40 Q60,55 100,40");}50%{d:path("M20,40 Q60,20 100,40");}}
+.vacuum-svg{width:120px;height:80px;}
 .stats-header{background:linear-gradient(135deg,var(--sage),var(--sage-dark));padding:40px 24px 32px;text-align:center;color:white;}
 .big-stat{font-family:'Cormorant Garamond',serif;font-size:64px;font-weight:300;line-height:1;}
 .week-bar{display:flex;gap:6px;align-items:flex-end;height:80px;}
@@ -910,39 +971,135 @@ html,body{height:100%;overflow:hidden;background:var(--bg);font-family:'DM Sans'
             Let's Go
           </button>
         </div>
-        <div id="wm-active" style="display:none;flex-direction:column;flex:1;">
-          <div style="padding:20px 20px 12px;display:flex;align-items:center;justify-content:space-between;">
+        <div id="wm-active" style="display:none;flex-direction:column;flex:1;overflow:hidden;">
+
+          <!-- TOP BAR (always visible) -->
+          <div style="padding:12px 20px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;background:rgba(0,0,0,.2);">
             <div class="workout-progress-dots" id="wm-dots"></div>
-            <button onclick="stopWorkout()" style="background:rgba(255,255,255,.1);border:none;color:white;border-radius:100px;padding:6px 14px;font-size:12px;cursor:pointer;font-family:'DM Sans',sans-serif;">✕ Exit</button>
+            <button onclick="stopWorkout()" style="background:rgba(255,255,255,.08);border:1.5px solid rgba(255,255,255,.12);color:rgba(255,255,255,.6);border-radius:100px;padding:5px 14px;font-size:12px;cursor:pointer;font-family:'DM Sans',sans-serif;">✕ Exit</button>
           </div>
-          <img id="wm-photo" style="width:100%;height:260px;object-fit:cover;object-position:center;display:block;" src="" alt="exercise"/>
-          <div style="flex:1;padding:24px;display:flex;flex-direction:column;gap:16px;">
-            <div>
-              <div style="font-size:10px;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:.1em;" id="wm-ex-num">Exercise 1 of 5</div>
-              <div class="display" style="font-size:36px;color:white;margin-top:4px;" id="wm-ex-name"></div>
-              <div style="font-size:13px;color:rgba(255,255,255,.5);margin-top:2px;" id="wm-ex-reps"></div>
-              <div style="font-size:12px;color:var(--gold);margin-top:4px;font-weight:500;" id="wm-set-display"></div>
+
+          <!-- ── PHASE 1: GET READY ── -->
+          <div class="wm-phase" id="phase-ready" style="background:linear-gradient(160deg,#1a2616,#0e1a0a);">
+            <div class="phase-bar">
+              <span class="phase-label ready">Get Ready</span>
+              <span style="font-size:11px;color:rgba(255,255,255,.35);" id="pr-ex-num">Exercise 1 of 5</span>
             </div>
-            <div class="big-timer" id="wm-timer">—</div>
-            <!-- Rep counter for no-timer exercises -->
-            <div id="wm-rep-counter" style="display:none;">
-              <div class="rep-counter-row">
-                <button class="rep-circle-btn" onclick="changeRep(-1)">−</button>
-                <div class="rep-big-num" id="wm-rep-num">0</div>
-                <button class="rep-circle-btn" onclick="changeRep(1)">+</button>
+            <img class="ready-photo" id="pr-photo" src="" alt="exercise"/>
+            <div class="ready-body">
+              <div>
+                <div class="display" style="font-size:32px;color:white;line-height:1.1;" id="pr-name">—</div>
+                <div style="font-size:13px;color:var(--gold);margin-top:6px;font-weight:500;" id="pr-goal">—</div>
               </div>
-              <p style="font-size:11px;color:rgba(255,255,255,.4);text-align:center;">Tap + for each rep completed</p>
+              <!-- Stomach vacuum animated guide (hidden by default) -->
+              <div id="vacuum-guide" style="display:none;background:rgba(255,255,255,.04);border-radius:14px;padding:14px;text-align:center;">
+                <svg class="vacuum-svg" viewBox="0 0 120 80" fill="none" id="vacuum-svg">
+                  <ellipse cx="60" cy="55" rx="44" ry="18" fill="rgba(232,130,154,.15)" stroke="rgba(232,130,154,.4)" stroke-width="1.5"/>
+                  <path id="vacuum-curve" d="M16,40 Q60,25 104,40" stroke="#9CAF88" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+                  <text x="60" y="18" text-anchor="middle" fill="rgba(255,255,255,.4)" font-size="9" font-family="DM Sans">exhale → pull IN</text>
+                </svg>
+                <p style="font-size:11px;color:rgba(255,255,255,.4);margin-top:4px;" id="vacuum-anim-label">Exhale all air out first</p>
+              </div>
+              <ul class="ready-cues" id="pr-cues"></ul>
+              <div style="display:flex;gap:8px;">
+                <button onclick="showVideoForCurrent()" id="pr-video-btn" style="flex:1;padding:11px;border-radius:12px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);color:rgba(255,255,255,.65);font-size:13px;cursor:pointer;font-family:'DM Sans',sans-serif;display:flex;align-items:center;justify-content:center;gap:6px;">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M5 3l14 9-14 9V3z" fill="rgba(255,255,255,.65)"/></svg>Watch Demo
+                </button>
+                <button onclick="openYouTube()" id="pr-yt-btn" style="padding:11px 14px;border-radius:12px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);color:rgba(255,255,255,.5);font-size:11px;cursor:pointer;font-family:'DM Sans',sans-serif;">↗ YouTube</button>
+              </div>
             </div>
-            <div style="font-size:13px;color:rgba(255,255,255,.5);text-align:center;" id="wm-status">Get ready...</div>
-            <button onclick="showVideoForCurrent()" id="wm-video-btn" style="align-self:center;padding:8px 20px;border-radius:100px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);color:rgba(255,255,255,.7);font-size:12px;cursor:pointer;font-family:'DM Sans',sans-serif;display:flex;align-items:center;gap:6px;">
-              <svg width="14" height="14" fill="none" viewBox="0 0 24 24"><path d="M5 3l14 9-14 9V3z" fill="rgba(255,255,255,.7)"/></svg>
-              Watch Demo
-            </button>
+            <div style="padding:16px 20px 28px;margin-top:auto;flex-shrink:0;">
+              <button onclick="startCountdown()" style="width:100%;padding:17px;border-radius:16px;background:linear-gradient(135deg,#9CAF88,#6D8B5A);color:white;border:none;cursor:pointer;font-size:16px;font-weight:600;font-family:'DM Sans',sans-serif;box-shadow:0 6px 20px rgba(156,175,136,.35);letter-spacing:.02em;">I'm Ready →</button>
+            </div>
           </div>
-          <div class="workout-controls">
-            <button class="wbtn secondary" onclick="skipExercise()">Skip →</button>
-            <button class="wbtn primary" id="wm-main-btn" onclick="workoutMainBtn()">Start</button>
+
+          <!-- ── PHASE 2: COUNTDOWN ── -->
+          <div class="wm-phase" id="phase-countdown" style="background:linear-gradient(160deg,#1C1A10,#0E0A00);">
+            <div class="phase-bar">
+              <span class="phase-label countdown">Starting in…</span>
+            </div>
+            <div class="countdown-phase-bg">
+              <div style="font-size:13px;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.12em;margin-bottom:20px;" id="cd-ex-label-2">Stomach Vacuum</div>
+              <div class="cd-number" id="cd-num-2">5</div>
+              <div class="cd-hint" id="cd-hint-2">Get into position…</div>
+            </div>
           </div>
+
+          <!-- ── PHASE 3A: ACTIVE (TIMED) ── -->
+          <div class="wm-phase" id="phase-active-timed" style="background:linear-gradient(160deg,#1f0f12,#120C0E);">
+            <div class="phase-bar">
+              <span class="phase-label active-go">Active</span>
+              <span style="font-size:11px;color:rgba(255,255,255,.35);" id="at-set-label">Set 1 of 2</span>
+            </div>
+            <div class="active-timed-body">
+              <div style="font-size:11px;color:rgba(255,255,255,.35);text-transform:uppercase;letter-spacing:.1em;" id="at-ex-name">Forearm Plank</div>
+              <!-- SVG progress ring -->
+              <div class="progress-ring-wrap">
+                <svg width="180" height="180" viewBox="0 0 180 180">
+                  <circle cx="90" cy="90" r="78" fill="none" stroke="rgba(255,255,255,.08)" stroke-width="8"/>
+                  <circle id="ring-progress" cx="90" cy="90" r="78" fill="none" stroke="#E8829A" stroke-width="8" stroke-linecap="round"
+                    stroke-dasharray="490" stroke-dashoffset="0" style="transition:stroke-dashoffset .5s linear;"/>
+                </svg>
+                <div class="progress-ring-center">
+                  <div class="ring-timer" id="at-timer">30</div>
+                  <div class="ring-label">seconds</div>
+                </div>
+              </div>
+              <div class="active-cue-text" id="at-cue">HOLD</div>
+              <div class="active-mini-cues" id="at-mini-cues"></div>
+            </div>
+            <div class="workout-controls">
+              <button class="wbtn secondary" onclick="skipExercise()" style="flex:.6;">Skip</button>
+              <button class="wbtn primary" id="at-pause-btn" onclick="toggleTimerPause()" style="flex:1.4;">Pause ⏸</button>
+            </div>
+          </div>
+
+          <!-- ── PHASE 3B: ACTIVE (REPS) ── -->
+          <div class="wm-phase" id="phase-active-reps" style="background:linear-gradient(160deg,#0f1a12,#0a140c);">
+            <div class="phase-bar">
+              <span class="phase-label active-go">Active</span>
+              <span style="font-size:11px;color:rgba(255,255,255,.35);" id="ar-set-label">Set 1 of 2</span>
+            </div>
+            <div class="active-reps-body">
+              <div style="font-size:11px;color:rgba(255,255,255,.35);text-transform:uppercase;letter-spacing:.1em;" id="ar-ex-name">Dead Bug</div>
+              <div class="rep-display">
+                <span class="rep-big" id="ar-rep-num">0</span>
+                <span style="font-size:18px;color:rgba(255,255,255,.4);" id="ar-rep-of">/ 8 reps</span>
+              </div>
+              <button class="rep-add-btn" id="ar-plus-btn" onclick="addRep()">+1</button>
+              <button class="rep-undo" onclick="undoRep()">↩ Undo last rep</button>
+              <div class="rep-cues-strip" id="ar-cues"></div>
+            </div>
+            <div class="workout-controls">
+              <button class="wbtn secondary" onclick="skipExercise()" style="flex:.6;">Skip</button>
+              <button class="wbtn primary" id="ar-finish-btn" onclick="finishRepSet()" style="flex:1.4;opacity:.5;">Finish Set ✓</button>
+            </div>
+          </div>
+
+          <!-- ── PHASE 4: REST ── -->
+          <div class="wm-phase" id="phase-rest" style="background:linear-gradient(160deg,#0c1420,#080e18);">
+            <div class="phase-bar">
+              <span class="phase-label resting">Rest</span>
+              <span style="font-size:11px;color:rgba(255,255,255,.35);" id="rest-set-label">Set done ✓</span>
+            </div>
+            <div class="rest-body">
+              <div style="font-size:13px;color:rgba(255,255,255,.35);text-transform:uppercase;letter-spacing:.1em;">Take a breather</div>
+              <div class="rest-timer-big" id="rest-timer">30</div>
+              <div class="rest-next-card" id="rest-next-card" style="display:none;">
+                <img class="rest-next-thumb" id="rest-next-thumb" src="" alt="next"/>
+                <div style="flex:1;text-align:left;">
+                  <div style="font-size:10px;color:rgba(255,255,255,.35);text-transform:uppercase;letter-spacing:.08em;">Up next</div>
+                  <div style="font-size:15px;font-weight:500;color:white;margin-top:2px;" id="rest-next-name">—</div>
+                  <div style="font-size:11px;color:rgba(255,255,255,.4);margin-top:2px;" id="rest-next-goal">—</div>
+                </div>
+              </div>
+              <div style="font-size:13px;color:rgba(255,255,255,.5);" id="rest-msg">You're doing amazing 💪</div>
+            </div>
+            <div class="workout-controls">
+              <button class="wbtn secondary" onclick="skipRest()">Skip Rest →</button>
+            </div>
+          </div>
+
         </div>
       </div>
     </div>
@@ -1537,15 +1694,30 @@ const WM_EXERCISES_ORIG=[
   { name:'Bird-Dog',       img:'data:image/jpeg;base64,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', reps:'8 reps per side × 2 sets', holdTime:0, sets:2 },
   { name:'Forearm Plank',  img:'data:image/jpeg;base64,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', reps:'30 sec hold × 3 sets', holdTime:30, sets:3 }
 ];
-let wmIdx=0,wmInterval=null,wmRemaining=0,wmRunning=false,wmRestMode=false,wmCurrentSet=1,wmTotalSets=1;
-let wmRepCount=0; // tracks reps for no-timer exercises
+// legacy stubs kept for compatibility
+let wmInterval=null, wmRemaining=0, wmRunning=false, wmRestMode=false;
 
 // Add video IDs to each exercise
-WM_EXERCISES_ORIG[0].videoId='mNi7mOAh8b0'; // Stomach Vacuum
+WM_EXERCISES_ORIG[0].videoId='mNi7mOAh8b0'; // Stomach Vacuum (YouTube primary)
+WM_EXERCISES_ORIG[0].cues=['Exhale ALL air from your lungs first','Pull your belly button toward your spine','Breathe shallow — ribs only, not belly','Hold tight, stay tall'];
+WM_EXERCISES_ORIG[0].activeMsgs=['Pull it IN','Belly to spine…','Breathe shallow','Hold steady 💪'];
+WM_EXERCISES_ORIG[0].isVacuum=true; // show animated guide toggle
+
 WM_EXERCISES_ORIG[1].videoId='YtAfSlkOgFQ'; // Dead Bug
+WM_EXERCISES_ORIG[1].cues=['Lie flat, press lower back into the floor','Extend opposite arm + leg slowly','Don\'t let your back arch off the floor','Exhale as you extend, inhale to return'];
+WM_EXERCISES_ORIG[1].activeMsgs=['Back flat on the floor','Slow and controlled','Extend fully','Switch sides'];
+
 WM_EXERCISES_ORIG[2].videoId='8bbE64NuDTU'; // Glute Bridge
+WM_EXERCISES_ORIG[2].cues=['Feet flat, hip-width apart','Drive through your heels to lift','Squeeze glutes at the top','Lower slowly — don\'t just drop'];
+WM_EXERCISES_ORIG[2].activeMsgs=['Squeeze at the top!','Drive through your heels','Lower slowly','Back straight'];
+
 WM_EXERCISES_ORIG[3].videoId='wiFNA3sqjCA'; // Bird-Dog
+WM_EXERCISES_ORIG[3].cues=['Start on hands and knees, neutral spine','Extend opposite arm and leg together','Keep hips square — don\'t rotate','Hold 1-2 seconds at full extension'];
+WM_EXERCISES_ORIG[3].activeMsgs=['Hips square!','Hold at the top','Stay balanced','Switch sides'];
+
 WM_EXERCISES_ORIG[4].videoId='pSHjTRCQxIw'; // Forearm Plank
+WM_EXERCISES_ORIG[4].cues=['Elbows under shoulders, forearms flat','Body straight head to heels — no sagging','Brace your core like you\'re about to be poked','Breathe steadily — don\'t hold your breath'];
+WM_EXERCISES_ORIG[4].activeMsgs=['HOLD','Core tight','Straight line','Almost there…'];
 
 // Shuffle exercises each session (Fisher-Yates)
 function shuffleExercises(){
@@ -1557,38 +1729,71 @@ function shuffleExercises(){
   return arr;
 }
 
-let WM_EXERCISES = WM_EXERCISES_ORIG; // will be shuffled on startWorkout
-var wmExStartTime=0;    // when current exercise started
-var wmWorkoutStart=0;   // when full workout started
-var wmExTimeSpent={};   // ms spent on each exercise
-var WM_MIN_EX_SECS=15;  // minimum seconds per exercise before Done is allowed
-var WM_MIN_TOTAL_SECS=180; // minimum 3 minutes for full workout
+let WM_EXERCISES = WM_EXERCISES_ORIG;
+var wmWorkoutStart=0;
+var WM_MIN_TOTAL_SECS=180;
+
+// ── PHASE STATE ──
+// Phases: 'ready' | 'countdown' | 'active' | 'rest'
+let wmIdx=0, wmCurrentSet=1, wmTotalSets=1;
+let wmTimerInterval=null, wmTimerRemaining=0, wmTimerRunning=false;
+let wmTimerTotal=0; // for ring
+
+function showPhase(phase){
+  ['phase-ready','phase-countdown','phase-active-timed','phase-active-reps','phase-rest'].forEach(id=>{
+    const el=document.getElementById(id);
+    if(el) el.classList.toggle('active', id==='phase-'+phase ||
+      (phase==='active-timed' && id==='phase-active-timed') ||
+      (phase==='active-reps' && id==='phase-active-reps'));
+  });
+  // fix: handle two active sub-phases
+  ['phase-active-timed','phase-active-reps'].forEach(id=>{
+    const el=document.getElementById(id);
+    if(el) el.classList.remove('active');
+  });
+  if(phase==='active-timed') document.getElementById('phase-active-timed').classList.add('active');
+  else if(phase==='active-reps') document.getElementById('phase-active-reps').classList.add('active');
+  else{
+    const target=document.getElementById('phase-'+phase);
+    if(target) target.classList.add('active');
+  }
+}
+
+function updateDots(){
+  const dots=document.getElementById('wm-dots');
+  if(!dots) return;
+  dots.innerHTML=WM_EXERCISES.map((_,i)=>`<div class="wdot${i<wmIdx?' done':i===wmIdx?' current':''}"></div>`).join('');
+}
+
+// ── SPLASH ──
 function refreshWorkoutSplash(){
   document.getElementById('wm-splash').style.display='flex';
   document.getElementById('wm-active').style.display='none';
   checkWorkoutResume();
 }
 
+// ── START ──
 function startWorkout(){
-  WM_EXERCISES = shuffleExercises();
-  wmWorkoutStart=Date.now();wmExTimeSpent={};
-  wmIdx=0;wmRunning=false;wmRestMode=false;wmRepCount=0;
+  WM_EXERCISES=shuffleExercises();
+  wmWorkoutStart=Date.now();
+  wmIdx=0; wmCurrentSet=1; wmTimerRunning=false; wmRepCount=0;
   document.getElementById('wm-splash').style.display='none';
   document.getElementById('wm-active').style.display='flex';
   saveWorkoutProgress(0);
-  loadWorkoutEx(0); // show exercise info first, countdown fires on Start tap
+  loadReadyPhase(0);
+  soundWorkoutStart();
 }
 
 function resumeWorkout(){
   const saved=getSavedProgress();
   if(!saved) return;
-  WM_EXERCISES = saved.exercises||WM_EXERCISES_ORIG;
-  wmWorkoutStart=Date.now();wmExTimeSpent={};
+  WM_EXERCISES=saved.exercises||WM_EXERCISES_ORIG;
+  wmWorkoutStart=Date.now();
   const idx=saved.idx||0;
-  wmIdx=idx;wmRunning=false;wmRestMode=false;wmRepCount=0;
+  wmIdx=idx; wmCurrentSet=1; wmTimerRunning=false; wmRepCount=0;
   document.getElementById('wm-splash').style.display='none';
   document.getElementById('wm-active').style.display='flex';
-  loadWorkoutEx(idx); // show exercise info, countdown fires on Start tap
+  loadReadyPhase(idx);
 }
 
 function clearResume(){
@@ -1598,219 +1803,359 @@ function clearResume(){
 
 function saveWorkoutProgress(idx){
   if(idx>=WM_EXERCISES.length) return;
-  localStorage.setItem('cg_wm_progress', JSON.stringify({
-    idx, exerciseNames: WM_EXERCISES.map(e=>e.name), savedAt: Date.now()
+  localStorage.setItem('cg_wm_progress',JSON.stringify({
+    idx, exerciseNames:WM_EXERCISES.map(e=>e.name), savedAt:Date.now()
   }));
 }
 
 function getSavedProgress(){
   try{
     const d=JSON.parse(localStorage.getItem('cg_wm_progress')||'null');
-    if(!d) return null;
-    if(Date.now()-d.savedAt>86400000) return null; // expire after 24h
-    if(!d.exerciseNames) return null;
-    // Reconstruct exercise order from saved names
+    if(!d||Date.now()-d.savedAt>86400000||!d.exerciseNames) return null;
     const exercises=d.exerciseNames.map(n=>WM_EXERCISES_ORIG.find(e=>e.name===n)).filter(Boolean);
     if(exercises.length!==WM_EXERCISES_ORIG.length) return null;
-    return {...d, exercises};
-  }catch(e){ return null; }
+    return {...d,exercises};
+  }catch(e){return null;}
 }
 
 function checkWorkoutResume(){
   const saved=getSavedProgress();
   const banner=document.getElementById('wm-resume-banner');
   const label=document.getElementById('wm-resume-label');
-  if(saved && saved.idx > 0){
+  if(saved&&saved.idx>0){
     banner.style.display='flex';
-    if(label) label.textContent='Left off at exercise '+(saved.idx+1)+' of '+WM_EXERCISES_ORIG.length+' ('+saved.exercises[saved.idx].name+')';
+    if(label) label.textContent='Left off at exercise '+(saved.idx+1)+': '+saved.exercises[saved.idx].name;
   } else {
     banner.style.display='none';
   }
 }
 
-// ── COUNTDOWN ──
-function showCountdown(exName, callback){
-  const overlay=document.getElementById('countdown-overlay');
-  const numEl=document.getElementById('cd-num');
-  const labelEl=document.getElementById('cd-ex-label');
-  if(labelEl) labelEl.textContent=exName||'Get Ready';
-  overlay.classList.add('show');
-  let count=5;
-  numEl.textContent=count;
-  numEl.className='countdown-num';
-  void numEl.offsetWidth; // force reflow for animation
-  numEl.className='countdown-num';
+// ── PHASE 1: GET READY ──
+function loadReadyPhase(idx){
+  if(!WM_EXERCISES||WM_EXERCISES.length===0) WM_EXERCISES=shuffleExercises();
+  if(idx>=WM_EXERCISES.length){finishWorkout();return;}
+  if(idx<0) idx=0;
+  wmIdx=idx;
+  // only reset set counter when moving to a NEW exercise
+  // callers that want set 1 must set wmCurrentSet=1 themselves
+  wmRepCount=0;
+  clearInterval(wmTimerInterval);
+  wmTimerRunning=false;
+  const ex=WM_EXERCISES[idx];
+  wmTotalSets=ex.sets||1;
+  updateDots();
+  saveWorkoutProgress(idx);
+
+  // Populate GET READY screen
+  const photo=document.getElementById('pr-photo');
+  if(photo){photo.src=ex.img;photo.style.objectFit=ex.tall?'contain':'cover';}
+  setText('pr-name', ex.name);
+  setText('pr-goal', ex.reps);
+  setText('pr-ex-num', 'Exercise '+(idx+1)+' of '+WM_EXERCISES.length);
+
+  // Cues
+  const cuesEl=document.getElementById('pr-cues');
+  if(cuesEl&&ex.cues) cuesEl.innerHTML=(ex.cues||[]).map(c=>`<li class="ready-cue"><div class="ready-cue-dot"></div><span>${c}</span></li>`).join('');
+
+  // Stomach vacuum animated guide toggle
+  const vGuide=document.getElementById('vacuum-guide');
+  const vBtn=document.getElementById('pr-yt-btn');
+  if(vGuide) vGuide.style.display='none';
+  if(ex.isVacuum){
+    // Show toggle button for animated guide
+    if(vBtn) vBtn.textContent='Show Belly Guide';
+  } else {
+    if(vBtn) vBtn.textContent='↗ YouTube';
+  }
+
+  showPhase('ready');
+}
+
+// Toggle vacuum animated guide
+function openYouTube(){
+  const ex=WM_EXERCISES[wmIdx];
+  if(ex&&ex.isVacuum){
+    const vGuide=document.getElementById('vacuum-guide');
+    if(vGuide){
+      const showing=vGuide.style.display!=='none';
+      vGuide.style.display=showing?'none':'block';
+      const btn=document.getElementById('pr-yt-btn');
+      if(btn) btn.textContent=showing?'Show Belly Guide':'Hide Guide';
+      if(!showing) startVacuumAnim();
+    }
+  } else if(ex&&ex.videoId){
+    window.open('https://www.youtube.com/watch?v='+ex.videoId,'_blank');
+  }
+}
+
+// Belly animation for Stomach Vacuum
+let vacuumAnimFrame=null, vacuumPhase=0;
+function startVacuumAnim(){
+  if(vacuumAnimFrame) cancelAnimationFrame(vacuumAnimFrame);
+  const curve=document.getElementById('vacuum-curve');
+  const label=document.getElementById('vacuum-anim-label');
+  let t=0;
+  const labels=['Exhale all air out…','Pull belly IN ↑','Hold…','Breathe shallow…','Slowly release…'];
+  function step(){
+    t+=0.008;
+    const pullIn=Math.sin(t)*18; // +ve = pulled in, -ve = relaxed
+    const y1=40-pullIn, y2=40-pullIn;
+    if(curve) curve.setAttribute('d',`M16,40 Q60,${y1} 104,${y2}`);
+    if(label) label.textContent=labels[Math.floor((t/(Math.PI*2)*labels.length))%labels.length];
+    vacuumAnimFrame=requestAnimationFrame(step);
+  }
+  step();
+}
+
+// ── PHASE 2: COUNTDOWN ──
+function startCountdown(){
+  const ex=WM_EXERCISES[wmIdx];
+  setText('cd-ex-label-2', ex.name);
+  const hints=['Get into position…','Take a deep breath…','Brace your core…','Here we go…','GO!'];
+  showPhase('countdown');
   soundTimerStart();
+  let count=5;
+  const numEl=document.getElementById('cd-num-2');
+  const hintEl=document.getElementById('cd-hint-2');
+  if(numEl) numEl.textContent=count;
+  if(hintEl) hintEl.textContent=hints[0];
   const tick=setInterval(()=>{
     count--;
-    if(count>0){
-      numEl.textContent=count;
-      numEl.className='countdown-num';
+    if(numEl){
+      numEl.className='cd-number';
       void numEl.offsetWidth;
-      numEl.className='countdown-num';
+      numEl.className='cd-number';
+    }
+    if(count>0){
+      if(numEl) numEl.textContent=count;
+      if(hintEl) hintEl.textContent=hints[5-count]||hints[0];
       soundTimerStart();
     } else if(count===0){
-      numEl.textContent='GO!';
-      numEl.className='countdown-num countdown-go';
+      if(numEl){numEl.textContent='GO!';numEl.className='cd-number cd-go';}
+      if(hintEl) hintEl.textContent='';
       soundWorkoutStart();
     } else {
       clearInterval(tick);
-      overlay.classList.remove('show');
-      callback();
+      startActivePhase();
     }
   },900);
 }
 
+// ── PHASE 3: ACTIVE ──
+function startActivePhase(){
+  const ex=WM_EXERCISES[wmIdx];
+  setText('at-set-label','Set '+wmCurrentSet+' of '+wmTotalSets);
+  setText('ar-set-label','Set '+wmCurrentSet+' of '+wmTotalSets);
+
+  if(ex.holdTime>0){
+    // TIMED
+    setText('at-ex-name', ex.name);
+    setText('at-cue', ex.activeMsgs?ex.activeMsgs[0]:'HOLD');
+    const miniEl=document.getElementById('at-mini-cues');
+    if(miniEl&&ex.cues) miniEl.innerHTML=(ex.cues||[]).map(c=>`<div class="active-mini-cue">${c}</div>`).join('');
+    wmTimerTotal=ex.holdTime;
+    wmTimerRemaining=ex.holdTime;
+    wmTimerRunning=true;
+    updateRing(ex.holdTime, ex.holdTime);
+    setText('at-timer', ex.holdTime+'');
+    document.getElementById('at-pause-btn').textContent='Pause ⏸';
+    showPhase('active-timed');
+    const msgs=ex.activeMsgs||['HOLD'];
+    let msgIdx=0;
+    wmTimerInterval=setInterval(()=>{
+      wmTimerRemaining--;
+      updateRing(wmTimerRemaining, wmTimerTotal);
+      const t=document.getElementById('at-timer');
+      if(t){t.textContent=wmTimerRemaining+'';t.style.color=wmTimerRemaining<=5?'#FF8A80':'white';}
+      if(wmTimerRemaining<=3&&wmTimerRemaining>0) soundTick();
+      // rotate encouraging messages
+      if(wmTimerRemaining%(Math.ceil(wmTimerTotal/msgs.length))===0){
+        msgIdx=(msgIdx+1)%msgs.length;
+        setText('at-cue', msgs[msgIdx]);
+      }
+      if(wmTimerRemaining<=0){
+        clearInterval(wmTimerInterval);wmTimerRunning=false;
+        soundHoldDone();
+        loadRestPhase();
+      }
+    },1000);
+  } else {
+    // REPS
+    setText('ar-ex-name', ex.name);
+    wmRepCount=0;
+    setText('ar-rep-num','0');
+    // parse rep target from reps string e.g. "8 reps per side × 2 sets"
+    const match=(ex.reps||'').match(/(\d+)\s*reps?/i);
+    const target=match?parseInt(match[1]):0;
+    setText('ar-rep-of', target?'/ '+target+' reps':'reps done');
+    const cuEl=document.getElementById('ar-cues');
+    if(cuEl&&ex.cues) cuEl.innerHTML=(ex.cues||[]).map(c=>`<div class="active-mini-cue">${c}</div>`).join('');
+    const finBtn=document.getElementById('ar-finish-btn');
+    if(finBtn){finBtn.style.opacity='.5';finBtn.textContent='Finish Set ✓';}
+    showPhase('active-reps');
+  }
+}
+
+function updateRing(remaining, total){
+  const ring=document.getElementById('ring-progress');
+  if(!ring) return;
+  const full=490;
+  const offset=total>0?full*(1-remaining/total):0;
+  ring.style.strokeDashoffset=offset;
+}
+
+function toggleTimerPause(){
+  const btn=document.getElementById('at-pause-btn');
+  if(wmTimerRunning){
+    clearInterval(wmTimerInterval);wmTimerRunning=false;
+    if(btn) btn.textContent='Resume ▶';
+    setText('at-cue','Paused — tap Resume when ready');
+  } else {
+    wmTimerRunning=true;
+    if(btn) btn.textContent='Pause ⏸';
+    const ex=WM_EXERCISES[wmIdx];
+    const msgs=ex.activeMsgs||['HOLD'];
+    let msgIdx=0;
+    wmTimerInterval=setInterval(()=>{
+      wmTimerRemaining--;
+      updateRing(wmTimerRemaining, wmTimerTotal);
+      const t=document.getElementById('at-timer');
+      if(t){t.textContent=wmTimerRemaining+'';t.style.color=wmTimerRemaining<=5?'#FF8A80':'white';}
+      if(wmTimerRemaining<=3&&wmTimerRemaining>0) soundTick();
+      if(wmTimerRemaining%(Math.ceil(wmTimerTotal/msgs.length))===0){
+        msgIdx=(msgIdx+1)%msgs.length;
+        setText('at-cue', msgs[msgIdx]);
+      }
+      if(wmTimerRemaining<=0){
+        clearInterval(wmTimerInterval);wmTimerRunning=false;
+        soundHoldDone();
+        loadRestPhase();
+      }
+    },1000);
+  }
+}
+
+// Rep buttons
+function addRep(){
+  const ex=WM_EXERCISES[wmIdx];
+  wmRepCount++;
+  const numEl=document.getElementById('ar-rep-num');
+  if(numEl) numEl.textContent=wmRepCount;
+  soundRepDone();
+  // pop animation
+  const btn=document.getElementById('ar-plus-btn');
+  if(btn){btn.classList.add('pop');setTimeout(()=>btn.classList.remove('pop'),280);}
+  // unlock Finish Set after at least 1 rep
+  const finBtn=document.getElementById('ar-finish-btn');
+  if(finBtn&&wmRepCount>0){finBtn.style.opacity='1';finBtn.textContent='Finish Set ✓';}
+}
+
+function undoRep(){
+  if(wmRepCount<=0) return;
+  wmRepCount--;
+  setText('ar-rep-num', wmRepCount+'');
+  const finBtn=document.getElementById('ar-finish-btn');
+  if(finBtn&&wmRepCount===0){finBtn.style.opacity='.5';}
+}
+
+function finishRepSet(){
+  if(wmRepCount<1){showToast('Tap +1 Rep at least once first! 💪');return;}
+  loadRestPhase();
+}
+
+// ── PHASE 4: REST ──
+function loadRestPhase(){
+  clearInterval(wmTimerInterval);wmTimerRunning=false;
+  soundHoldDone();
+  const hasMoreSets=wmCurrentSet<wmTotalSets;
+  const nextIdx=hasMoreSets?wmIdx:wmIdx+1;
+  const nextEx=WM_EXERCISES[nextIdx];
+  const restSecs=30;
+
+  setText('rest-set-label', hasMoreSets?'Set '+wmCurrentSet+' done ✓':'Exercise done ✓');
+  const msgs=['You\'re doing amazing 💪','Keep that energy up! 🔥','Breathe and reset ✨','So strong! Keep going 🌸'];
+  setText('rest-msg', msgs[Math.floor(Math.random()*msgs.length)]);
+
+  // Next up card
+  const card=document.getElementById('rest-next-card');
+  const thumb=document.getElementById('rest-next-thumb');
+  const nextName=document.getElementById('rest-next-name');
+  const nextGoal=document.getElementById('rest-next-goal');
+  if(nextEx&&!hasMoreSets){
+    if(card) card.style.display='flex';
+    if(thumb) thumb.src=nextEx.img;
+    if(nextName) nextName.textContent=nextEx.name;
+    if(nextGoal) nextGoal.textContent=nextEx.reps;
+  } else if(hasMoreSets){
+    if(card) card.style.display='flex';
+    if(thumb){thumb.src=WM_EXERCISES[wmIdx].img;}
+    if(nextName) nextName.textContent=WM_EXERCISES[wmIdx].name+' — Set '+(wmCurrentSet+1);
+    if(nextGoal) nextGoal.textContent=WM_EXERCISES[wmIdx].reps;
+  } else {
+    if(card) card.style.display='none';
+  }
+
+  let r=restSecs;
+  setText('rest-timer', r+'');
+  showPhase('rest');
+
+  wmTimerInterval=setInterval(()=>{
+    r--;
+    setText('rest-timer', r+'');
+    if(r<=0){clearInterval(wmTimerInterval);advanceAfterRest();}
+  },1000);
+}
+
+function skipRest(){
+  clearInterval(wmTimerInterval);
+  advanceAfterRest();
+}
+
+function advanceAfterRest(){
+  if(wmCurrentSet<wmTotalSets){
+    wmCurrentSet++;          // advance to next set of same exercise
+    loadReadyPhase(wmIdx);   // stays on same exercise, wmCurrentSet already correct
+  } else {
+    wmCurrentSet=1;          // reset for new exercise
+    loadReadyPhase(wmIdx+1);
+  }
+}
+
+// ── SKIP EXERCISE ──
+function skipExercise(){
+  clearInterval(wmTimerInterval);wmTimerRunning=false;
+  soundSkip();
+  wmCurrentSet=1;
+  loadReadyPhase(wmIdx+1);
+}
+
+// ── STOP ──
 function stopWorkout(){
-  clearInterval(wmInterval);wmInterval=null;
+  clearInterval(wmTimerInterval);wmTimerRunning=false;
+  if(vacuumAnimFrame){cancelAnimationFrame(vacuumAnimFrame);vacuumAnimFrame=null;}
   hideVideo();
   refreshWorkoutSplash();
 }
-function updateSetDisplay(){
-  var el=document.getElementById('wm-set-display');
-  if(el) el.textContent='Set '+wmCurrentSet+' of '+wmTotalSets;
-  var status=document.getElementById('wm-status');
-  if(!status) return;
-  const ex=WM_EXERCISES[wmIdx];
-  if(ex && ex.holdTime>0){
-    status.textContent= wmTotalSets>1
-      ? 'Set '+wmCurrentSet+' of '+wmTotalSets+' — tap Start when ready'
-      : 'Tap Start when you\'re in position ▶';
-  } else {
-    status.textContent= wmTotalSets>1
-      ? 'Set '+wmCurrentSet+' of '+wmTotalSets+' — tap Done when finished'
-      : 'Do your reps, then tap Done ✓';
-  }
-}
-function loadWorkoutEx(idx){
-  if(idx>=WM_EXERCISES.length){finishWorkout();return;}
-  const ex=WM_EXERCISES[idx];
-  wmRunning=false;wmRestMode=false;wmCurrentSet=1;wmTotalSets=ex.sets||1;
-  clearInterval(wmInterval);
-  const photo=document.getElementById('wm-photo');
-  photo.src=ex.img;
-  photo.style.height=ex.tall?'auto':'260px';
-  photo.style.objectFit=ex.tall?'contain':'cover';
-  document.getElementById('wm-ex-name').textContent=ex.name;
-  document.getElementById('wm-ex-num').textContent='Exercise '+(idx+1)+' of '+WM_EXERCISES.length;
-  document.getElementById('wm-ex-reps').textContent=ex.reps;
-  document.getElementById('wm-timer').textContent=ex.holdTime>0?ex.holdTime+'s':'—';
-  document.getElementById('wm-timer').className='big-timer';
-  // Hide rep counter always - not needed
-  const repCounter=document.getElementById('wm-rep-counter');
-  const timerEl=document.getElementById('wm-timer');
-  if(repCounter) repCounter.style.display='none';
-  if(timerEl) timerEl.style.display=ex.holdTime>0?'block':'none';
-  updateSetDisplay();
-  document.getElementById('wm-main-btn').textContent=ex.holdTime>0?'Start ▶':'Done ✓';
-  wmExStartTime=Date.now();
-  wmExTimeSpent[idx]=wmExTimeSpent[idx]||0;
-  saveWorkoutProgress(idx);
-  document.getElementById('wm-dots').innerHTML=WM_EXERCISES.map((_,i)=>'<div class="wdot'+(i<idx?' done':i===idx?' current':'')+'"></div>').join('');
-}
-function workoutMainBtn(){
-  const ex=WM_EXERCISES[wmIdx];
-  if(wmRestMode){clearInterval(wmInterval);wmIdx++;loadWorkoutEx(wmIdx);return;}
-  if(ex.holdTime>0&&!wmRunning){
-    // Show 5-second countdown THEN start the timer
-    document.getElementById('wm-main-btn').textContent='Get ready...';
-    document.getElementById('wm-main-btn').disabled=true;
-    showCountdown(ex.name, ()=>{
-      document.getElementById('wm-main-btn').disabled=false;
-      wmRunning=true;wmRemaining=ex.holdTime;
-      document.getElementById('wm-status').textContent='Hold it! Breathe...';
-      document.getElementById('wm-main-btn').textContent='Pause ⏸';
-      document.getElementById('wm-timer').style.display='block';
-      wmInterval=setInterval(()=>{wmRemaining--;
-        const t=document.getElementById('wm-timer');t.textContent=wmRemaining+'s';t.className='big-timer'+(wmRemaining<=5?' urgent':'');if(wmRemaining<=3&&wmRemaining>0){soundTick();}
-        if(wmRemaining<=0){clearInterval(wmInterval);wmInterval=null;soundHoldDone();startWmRest();}
-      },1000);
-    });
-  } else if(ex.holdTime>0&&wmRunning){
-    clearInterval(wmInterval);wmInterval=null;wmRunning=false;
-    document.getElementById('wm-main-btn').textContent='Resume ▶';
-    document.getElementById('wm-status').textContent='Paused — tap to continue';
-  } else {
-    // No-timer exercise — just tap Done when finished
-    startWmRest();
-  }
-}
 
-function changeRep(delta){} // kept as stub in case called
-
-function startWmRest(){
-  wmRestMode=true;wmRunning=false;
-  const timerEl=document.getElementById('wm-timer');
-  if(timerEl) timerEl.style.display='block';
-  const hasMoreSets=(wmCurrentSet<wmTotalSets);
-  let r=30;
-  document.getElementById('wm-timer').textContent=r+'s';
-  document.getElementById('wm-timer').className='big-timer';
-  document.getElementById('wm-status').textContent=hasMoreSets
-    ?'Rest — Set '+(wmCurrentSet+1)+' of '+wmTotalSets+' coming up'
-    :'✓ Exercise done! Rest up';
-  document.getElementById('wm-main-btn').textContent='Skip Rest →';
-  wmInterval=setInterval(()=>{
-    r--;
-    document.getElementById('wm-timer').textContent=r+'s';
-    if(r<=0){
-      clearInterval(wmInterval);wmInterval=null;
-      if(hasMoreSets){
-        wmCurrentSet++;wmRestMode=false;wmRunning=false;
-        const ex=WM_EXERCISES[wmIdx];
-        const te=document.getElementById('wm-timer');
-        if(ex.holdTime>0){document.getElementById('wm-timer').textContent=ex.holdTime+'s';if(te)te.style.display='block';}
-        else{if(te)te.style.display='none';}
-        document.getElementById('wm-timer').className='big-timer';
-        document.getElementById('wm-main-btn').textContent=ex.holdTime>0?'Start ▶':'Done ✓';
-        updateSetDisplay();
-      } else {
-        // Move to next exercise — show it first, countdown fires on Start tap
-        wmIdx++;
-        loadWorkoutEx(wmIdx);
-      }
-    }
-  },1000);
-}
-function skipExercise(){
-  // Can only skip REST periods, not exercises themselves
-  if(!wmRestMode){
-    showToast('⚠️ Do the exercise first!');
-    return;
-  }
-  clearInterval(wmInterval);wmInterval=null;
-  if(wmCurrentSet<wmTotalSets){
-    wmCurrentSet++;wmRestMode=false;wmRunning=false;
-    var ex=WM_EXERCISES[wmIdx];
-    document.getElementById('wm-timer').textContent=ex.holdTime>0?ex.holdTime+'s':'—';
-    document.getElementById('wm-timer').className='big-timer';
-    document.getElementById('wm-main-btn').textContent=ex.holdTime>0?'Start Set '+wmCurrentSet:'Done Set '+wmCurrentSet;
-    updateSetDisplay();
-  } else {
-    wmIdx++;
-    loadWorkoutEx(wmIdx);
-  }
-}
+// ── FINISH ──
 function finishWorkout(){
-  clearInterval(wmInterval);
-  var totalSecs = (Date.now() - wmWorkoutStart) / 1000;
-  if(totalSecs < WM_MIN_TOTAL_SECS){
-    var need = Math.ceil((WM_MIN_TOTAL_SECS - totalSecs) / 60);
-    showToast('⚠️ Workout too fast! Keep going (' + need + ' min left)');
-    return;
-  }
-  localStorage.removeItem('cg_wm_progress'); // clear saved progress on completion
+  clearInterval(wmTimerInterval);
+  localStorage.removeItem('cg_wm_progress');
+  if(vacuumAnimFrame){cancelAnimationFrame(vacuumAnimFrame);vacuumAnimFrame=null;}
   hideVideo();
   document.getElementById('wm-active').style.display='none';
   document.getElementById('wm-splash').style.display='flex';
+  checkWorkoutResume();
   [1,2,3,4,5].forEach(n=>{if(!completed.has(n)){completed.add(n);saveCompleted(completed);applyDone(n);}});
-  updateExProgress();updateHomeRing();const{streak}=completeStreak();refreshHome();refreshStats();setTimeout(()=>showCelebration(streak),400);
+  updateExProgress();updateHomeRing();
+  const{streak}=completeStreak();refreshHome();refreshStats();
+  setTimeout(()=>showCelebration(streak),400);
 }
 
-// ── VIDEO FUNCTIONS ──
+// ── VIDEO ──
 function showVideoForCurrent(){
   const ex=WM_EXERCISES[wmIdx];
-  if(!ex||!ex.videoId){ showToast('No video for this exercise'); return; }
+  if(!ex||!ex.videoId){showToast('No video for this exercise');return;}
   showVideo(ex.name, ex.videoId);
 }
 
@@ -1820,16 +2165,23 @@ function showVideo(name, videoId){
   const title=document.getElementById('video-title');
   if(title) title.textContent=name+' — Demo';
   if(frame) frame.src='https://www.youtube.com/embed/'+videoId+'?autoplay=1&rel=0&modestbranding=1';
-  overlay.classList.add('show');
+  if(overlay) overlay.classList.add('show');
 }
 
 function hideVideo(){
   const overlay=document.getElementById('video-overlay');
   const frame=document.getElementById('video-frame');
-  overlay.classList.remove('show');
-  if(frame) frame.src=''; // stop video
+  if(overlay) overlay.classList.remove('show');
+  if(frame) frame.src='';
 }
 
+// ── HELPER ──
+function setText(id, val){
+  const el=document.getElementById(id);
+  if(el) el.textContent=val;
+}
+
+// ── INIT update for workout resume check ──
 // ── INIT update for workout resume check ──
 // ═══════════════════════════════════════════
 var audioCtx = null;
@@ -2242,39 +2594,6 @@ function soundRankUp(){
     playTone(1568,'sine',0.3,0.55,0.5,ctx);
   });
 }
-
-// ═══════════════════════════════════════════
-// PATCH EXISTING startWorkout to add sound
-// ═══════════════════════════════════════════
-const _origStartWorkout = startWorkout;
-startWorkout = function(){
-  soundWorkoutStart();
-  const btn=document.querySelector('.btn-primary.btn-glow[onclick="startWorkout()"]');
-  if(btn){btn.classList.add('btn-start-pop');setTimeout(()=>btn.classList.remove('btn-start-pop'),600);}
-  _origStartWorkout();
-};
-
-// Patch workoutMainBtn to add rep sound when doing non-timer exercises
-const _origWMBtn = workoutMainBtn;
-workoutMainBtn = function(){
-  const ex=WM_EXERCISES[wmIdx];
-  if(ex && ex.holdTime===0 && !wmRestMode){soundRepDone();}
-  _origWMBtn();
-};
-
-// Patch startTimer to add timer start sound
-const _origStartTimer = startTimer;
-startTimer = function(btn,secs,n){
-  soundTimerStart();
-  _origStartTimer(btn,secs,n);
-};
-
-// Patch skipExercise to add skip sound
-const _origSkip = skipExercise;
-skipExercise = function(){
-  soundSkip();
-  _origSkip();
-};
 
 // ═══════════════════════════════════════════
 // SUPABASE MULTIPLAYER
