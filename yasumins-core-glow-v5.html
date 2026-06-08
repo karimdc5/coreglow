@@ -3082,7 +3082,7 @@ renderDailyChallenge();
 checkWorkoutResume(); // check for saved workout progress
 setTimeout(()=>showPage('page-home'),50);
 setTimeout(()=>document.querySelectorAll('#page-home .reveal').forEach(el=>el.classList.add('visible')),200);
-if(!localStorage.getItem(S.WELCOMED))setTimeout(showWelcome,700);
+
 // Check for incoming hype messages after 3s
 setTimeout(checkIncomingHype, 3000);
 
